@@ -1,0 +1,168 @@
+[
+	[
+		{
+			"probability": 0.9110397,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 291.27696199999997,
+				"top": 85.33442,
+				"width": 311.134666,
+				"height": 98.15474999999999
+			},
+			"text": {
+				"probability": 0.5183227,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 304.52752100000004,
+					"top": 106.859706,
+					"width": 262.01224299999996,
+					"height": 51.8703237
+				}
+			}
+		}
+	],
+	[
+		{
+			"probability": 0.945086062,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 278.96243300000003,
+				"top": 221.202,
+				"width": 340.8398,
+				"height": 83.36291999999999
+			},
+			"text": {
+				"probability": 0.168599352,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 266.564,
+					"top": 233.163357,
+					"width": 363.114536,
+					"height": 54.097770000000004
+				}
+			}
+		}
+	],
+	[
+		{
+			"probability": 0.8490156,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 285.392046,
+				"top": 349.1825,
+				"width": 391.32207600000004,
+				"height": 102.54326499999999
+			},
+			"text": {
+				"probability": 0.866817653,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 293.414235,
+					"top": 370.3723,
+					"width": 334.531426,
+					"height": 57.287037399999996
+				}
+			}
+		}
+	],
+	[
+		{
+			"probability": 0.9033444,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 284.513623,
+				"top": 481.061161,
+				"width": 405.573457,
+				"height": 96.83788
+			},
+			"text": {
+				"probability": 0.830513835,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 306.7457,
+					"top": 501.56449999999995,
+					"width": 314.007461,
+					"height": 51.96154
+				}
+			}
+		}
+	],
+	[
+		{
+			"probability": 0.907798,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 256.8277,
+				"top": 615.4755349999999,
+				"width": 438.98344000000003,
+				"height": 109.490752
+			},
+			"text": {
+				"probability": 0.438812226,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 312.35069999999996,
+					"top": 625.846863,
+					"width": 306.080163,
+					"height": 74.22805000000001
+				}
+			}
+		}
+	],
+	[
+		{
+			"probability": 0.946039,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 186.91714100000002,
+				"top": 825.1471,
+				"width": 358.662426,
+				"height": 125.444472
+			},
+			"text": {
+				"probability": 0.859454,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 202.398539,
+					"top": 841.5411,
+					"width": 303.471744,
+					"height": 78.96781
+				}
+			}
+		},
+		{
+			"probability": 0.9411774,
+			"tagId": "a82d7a71-e338-4c0b-8a27-d9d6a1e4530c",
+			"tagName": "node",
+			"boundingBox": {
+				"left": 613.6888,
+				"top": 816.251,
+				"width": 351.98772,
+				"height": 133.635283
+			},
+			"text": {
+				"probability": 0.3259513,
+				"tagId": "e5371429-b543-4b6f-8f82-a762ac041746",
+				"tagName": "text",
+				"boundingBox": {
+					"left": 616.2402999999999,
+					"top": 831.4391370000001,
+					"width": 333.114028,
+					"height": 93.85842
+				}
+			}
+		}
+	]
+]

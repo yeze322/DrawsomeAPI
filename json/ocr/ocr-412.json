@@ -1,0 +1,97 @@
+{
+  "status": "Succeeded",
+  "recognitionResult": {
+    "lines": [{
+      "boundingBox": [364, 171, 592, 176, 591, 216, 364, 212],
+      "text": "Hil I'm bot",
+      "words": [{
+        "boundingBox": [373, 172, 452, 174, 450, 214, 369, 213],
+        "text": "Hil"
+      }, {
+        "boundingBox": [460, 174, 511, 175, 509, 215, 458, 214],
+        "text": "I'm"
+      }, {
+        "boundingBox": [537, 176, 590, 177, 591, 216, 536, 215],
+        "text": "bot"
+      }]
+    }, {
+      "boundingBox": [344, 349, 619, 355, 618, 406, 342, 400],
+      "text": "What's your ?",
+      "words": [{
+        "boundingBox": [350, 351, 466, 355, 464, 402, 347, 399],
+        "text": "What's"
+      }, {
+        "boundingBox": [476, 355, 576, 356, 575, 405, 474, 402],
+        "text": "your"
+      }, {
+        "boundingBox": [595, 355, 617, 355, 617, 406, 595, 406],
+        "text": "?"
+      }]
+    }, {
+      "boundingBox": [364, 538, 624, 540, 623, 593, 363, 591],
+      "text": "GET INPUT",
+      "words": [{
+        "boundingBox": [372, 539, 469, 540, 468, 591, 371, 592],
+        "text": "GET"
+      }, {
+        "boundingBox": [486, 540, 625, 541, 623, 594, 485, 591],
+        "text": "INPUT"
+      }]
+    }, {
+      "boundingBox": [345, 724, 653, 734, 652, 795, 343, 784],
+      "text": "HT , {INPUTS !",
+      "words": [{
+        "boundingBox": [348, 728, 400, 729, 400, 786, 348, 784],
+        "text": "HT"
+      }, {
+        "boundingBox": [411, 730, 426, 730, 426, 787, 411, 786],
+        "text": ","
+      }, {
+        "boundingBox": [437, 730, 625, 734, 625, 795, 437, 787],
+        "text": "{INPUTS",
+        "confidence": "Low"
+      }, {
+        "boundingBox": [636, 734, 651, 734, 651, 796, 636, 796],
+        "text": "!"
+      }]
+    }, {
+      "boundingBox": [336, 926, 677, 918, 679, 988, 338, 995],
+      "text": "GET_ INPUT",
+      "words": [{
+        "boundingBox": [341, 929, 480, 924, 484, 993, 344, 996],
+        "text": "GET_",
+        "confidence": "Low"
+      }, {
+        "boundingBox": [493, 923, 672, 920, 676, 987, 497, 993],
+        "text": "INPUT"
+      }]
+    }, {
+      "boundingBox": [233, 1247, 536, 1228, 539, 1288, 237, 1307],
+      "text": "get Weather",
+      "words": [{
+        "boundingBox": [249, 1248, 325, 1242, 329, 1302, 253, 1306],
+        "text": "get"
+      }, {
+        "boundingBox": [337, 1241, 534, 1228, 538, 1289, 340, 1301],
+        "text": "Weather"
+      }]
+    }, {
+      "boundingBox": [721, 1229, 983, 1224, 984, 1293, 723, 1299],
+      "text": "sorry , I ...",
+      "words": [{
+        "boundingBox": [726, 1234, 846, 1232, 849, 1297, 730, 1297],
+        "text": "sorry",
+        "confidence": "Low"
+      }, {
+        "boundingBox": [859, 1232, 884, 1231, 886, 1296, 861, 1297],
+        "text": ","
+      }, {
+        "boundingBox": [896, 1230, 929, 1228, 931, 1296, 898, 1296],
+        "text": "I"
+      }, {
+        "boundingBox": [941, 1227, 983, 1224, 984, 1295, 943, 1296],
+        "text": "..."
+      }]
+    }]
+  }
+}
