@@ -2,6 +2,7 @@ const data = require('./json/recognition/412.json');
 const ocr = require('./json/ocr/ocr-412.json');
 const ObiTemplate = require('./ObiTemplate.json');
 
+const { writeFileSync } = require('fs');
 
 const NODE_TAG = 'node';
 const TEXT_TAG = 'text';
@@ -19,7 +20,7 @@ function processPredictionData(data) {
   const solidPredictions = predictions.filter(x => x.probability > 0.1);
   
   const nodes = solidPredictions
-    .filter(x => x.probability > 0.3)
+    .filter(x => x.probability > 0.5)
     .filter(x => x.tagName === NODE_TAG);
   return nodes;
 }
@@ -45,7 +46,9 @@ function synthesizeObi(ocrResult, predictResult, imageSize) {
 
   nodes.forEach(n => {
     const relevantText = texts.find(t => judgeBoundingBoxCross(n.boundingBox, t.boundingBox));
-    n.text = relevantText.text;
+    if (relevantText) {
+      n.text = relevantText.text;
+    }
   });
 
   return buildObi(nodes);
@@ -53,6 +56,7 @@ function synthesizeObi(ocrResult, predictResult, imageSize) {
 
 function buildObi(nodes) {
   const levels = levelNodes(nodes);
+  writeFileSync('./levels.json', JSON.stringify(levels, null, '\t'));
   const SEND_ACTIVITY = 'Microsoft.SendActivity';
   const IF_ELSE = 'Microsoft.IfCondition';
 
@@ -82,7 +86,7 @@ function buildObi(nodes) {
 
       if (prevLevel && prevLevel.length > 1) { // already exists a IfCondition
         prevStep.steps = [...(prevStep.steps || []), step1];
-        prevStep.elseSteps = [...(prevStep.steps || []), step2];
+        prevStep.elseSteps = [...(prevStep.elseSteps || []), step2];
       } else {  // need to create one
         const newStep = {
           $type: IF_ELSE,
@@ -106,7 +110,7 @@ function buildObi(nodes) {
 
 function levelNodes (nodes) {
   const MIN_INTERVAL_Y = 50;
-  const yOrderedNodes = nodes.sort((a, b) => a.boundingBox.top > b.boundingBox.top);
+  const yOrderedNodes = nodes.sort((a, b) => a.boundingBox.top - b.boundingBox.top);
 
   const levels = [];
   let prevLevel = [];
@@ -130,7 +134,7 @@ function levelNodes (nodes) {
 }
 
 function judgeBoundingBoxCross(box1, box2) {
-  const TH = 50;
+  const TH = 0;
 
   const toRect = box => [box.left, box.top, box.left + box.width, box.top + box.height];
   const rec1 = toRect(box1);

@@ -58,7 +58,7 @@ app.post('/obi-e2e', (req, res) => {
       return x;
     })
     .then(x => {
-      console.log('type of x', typeof x);
+      console.log('[SYNC] sync to runtime begin...');
       return rp({
         method: 'POST',
         uri: 'http://localhost:5000/api/hack/drawsome',
@@ -68,9 +68,11 @@ app.post('/obi-e2e', (req, res) => {
         body: x,
         json: true,
       }).then(() => {
-        console.log('finish sync file');
+        console.log('[SYNC] finish sync file');
         return x;
-      });
+      }).catch(e => {
+        console.log('[SYNC] failed!', e.message);
+      })
     });
 })
 
