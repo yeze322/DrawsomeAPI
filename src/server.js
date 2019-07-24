@@ -8,7 +8,7 @@ const { measureImageStreamSize } = require('./imageLib');
 const { synthesizeObi } = require('./sythesizeObi');
 
 const app = express();
-app.use(bodyParser.raw());
+app.use(bodyParser.raw({limit: '50mb'}));
 app.use(cors());
 app.use(express.static('public'))
 
@@ -83,4 +83,4 @@ app.post('/obi-e2e', (req, res) => {
     });
 })
 
-app.listen(3008);
+app.listen(process.env.PORT || 3008);

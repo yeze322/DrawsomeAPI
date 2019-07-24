@@ -40,6 +40,15 @@
       padding: 12px 12px; /* Some padding */
       font-size: 16px /* Set a font size */
     }
+    .inputbutton {
+      font-size: 16px;
+      padding: 12px 12px; /* Some padding */
+      border: 1px solid lightblue;
+    }
+    input {
+      height: 40px;
+      font-size: 20px;
+    }
   </style>
   <script>
     var img;
@@ -75,6 +84,7 @@
       })
       .then(function (response) {
         console.log('response', response);
+        $('#showjson').text(JSON.stringify(response.data, null, '\t'))
         $('#loadingIcon').css("display", "none");
       }).catch(e => {
         $('#loadingIcon').css("display", "none");
@@ -85,14 +95,15 @@
 
 <body>
   <div>
-    <input type='file' onchange="readURL(this);" />
+    <input class="inputbutton" type='file' onchange="readURL(this);" />
     <button class="buttonload" onclick="postImage(img)">
         <i id="loadingIcon" class="fa fa-spinner fa-spin"></i>Generate DrawsomeBot
     </button>
   </div>
   <div>
-    <img id="blah" src="#" alt="your image" />
+    <pre id="showjson"></pre>
   </div>
+  <img id="blah" src="#" alt="your image" />
 </body>
 
 </html>
