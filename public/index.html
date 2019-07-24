@@ -7,6 +7,7 @@
   <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
   <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <meta charset=utf-8 />
   <title>DrawsomeBot uploader</title>
   <!--[if IE]>
@@ -28,6 +29,16 @@
     #blah {
       transform: scale(0.5);
       transform-origin: 0% 0%;
+    }
+    #loadingIcon {
+      display: none;
+    }
+    .buttonload {
+      background-color: #4CAF50; /* Green background */
+      border: none; /* Remove borders */
+      color: white; /* White text */
+      padding: 12px 12px; /* Some padding */
+      font-size: 16px /* Set a font size */
     }
   </style>
   <script>
@@ -52,9 +63,11 @@
     }
 
     function postImage(image) {
+      if (!image) return;
+      $('#loadingIcon').css("display", "initial");
       axios({
         method: 'post',
-        url: 'http://localhost:3008/obi-e2e',
+        url: '/obi-e2e',
         headers: {
           'Content-Type': 'application/octet-stream',
         },
@@ -62,6 +75,9 @@
       })
       .then(function (response) {
         console.log('response', response);
+        $('#loadingIcon').css("display", "none");
+      }).catch(e => {
+        $('#loadingIcon').css("display", "none");
       });
     }
   </script>
@@ -70,8 +86,8 @@
 <body>
   <div>
     <input type='file' onchange="readURL(this);" />
-    <button onclick="postImage(img)">
-      Generate DrawsomeBot
+    <button class="buttonload" onclick="postImage(img)">
+        <i id="loadingIcon" class="fa fa-spinner fa-spin"></i>Generate DrawsomeBot
     </button>
   </div>
   <div>

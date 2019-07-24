@@ -10,6 +10,7 @@ const { synthesizeObi } = require('./sythesizeObi');
 const app = express();
 app.use(bodyParser.raw());
 app.use(cors());
+app.use(express.static('public'))
 
 app.post('/echo', (req, res) => {
   res.send(req.body);
