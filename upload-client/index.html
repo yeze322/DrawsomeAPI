@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet"
+    type="text/css" />
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <meta charset=utf-8 />
+  <title>DrawsomeBot uploader</title>
+  <!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+  <style>
+    article,
+    aside,
+    figure,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    section {
+      display: block;
+    }
+
+    #blah {
+      transform: scale(0.5);
+      transform-origin: 0% 0%;
+    }
+  </style>
+  <script>
+    var img;
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('#blah')
+            .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+        
+        var imgReader = new FileReader();
+        imgReader.onload = function () {
+          img = imgReader.result;
+        }
+        imgReader.readAsArrayBuffer(input.files[0]);
+      }
+    }
+
+    function postImage(image) {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3008/obi-e2e',
+        headers: {
+          'Content-Type': 'application/octet-stream',
+        },
+        data: img,
+      })
+      .then(function (response) {
+        console.log('response', response);
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <div>
+    <input type='file' onchange="readURL(this);" />
+    <button onclick="postImage(img)">
+      Generate DrawsomeBot
+    </button>
+  </div>
+  <div>
+    <img id="blah" src="#" alt="your image" />
+  </div>
+</body>
+
+</html>

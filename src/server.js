@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const rp = require('request-promise');
+const cors = require('cors');
 
 const { imageOCR, imagePredict } = require('./apis');
 const { measureImageStreamSize } = require('./imageLib');
@@ -8,6 +9,11 @@ const { synthesizeObi } = require('./sythesizeObi');
 
 const app = express();
 app.use(bodyParser.raw());
+app.use(cors());
+
+app.post('/echo', (req, res) => {
+  res.send(req.body);
+});
 
 app.post('/ocr', (req, res) => {
   imageOCR(req.body)
