@@ -55,7 +55,7 @@ function synthesizeObi(ocrResult, predictResult, imageSize) {
 
 function buildObi(nodes) {
   const levels = levelNodes(nodes);
-  writeFileSync('./levels.json', JSON.stringify(levels, null, '\t'));
+  // writeFileSync('./levels.json', JSON.stringify(levels, null, '\t'));
   
   const IF_ELSE = 'Microsoft.IfCondition';
   const steps = [];
