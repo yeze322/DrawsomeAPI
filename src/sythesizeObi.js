@@ -1,4 +1,5 @@
 const ObiTemplate = require('../static/ObiTemplate.json');
+const { guessObi } = require('./guessObi');
 
 const { writeFileSync } = require('fs');
 
@@ -55,9 +56,8 @@ function synthesizeObi(ocrResult, predictResult, imageSize) {
 function buildObi(nodes) {
   const levels = levelNodes(nodes);
   writeFileSync('./levels.json', JSON.stringify(levels, null, '\t'));
-  const SEND_ACTIVITY = 'Microsoft.SendActivity';
+  
   const IF_ELSE = 'Microsoft.IfCondition';
-
   const steps = [];
 
   let prevStep
@@ -65,22 +65,13 @@ function buildObi(nodes) {
 
   for (let lv of levels) {
     if (lv.length === 1) {
-      const newStep = {
-        $type: SEND_ACTIVITY,
-        activity: lv[0].text,
-      };
+      const newStep = guessObi(lv[0].text);
       steps.push(newStep);
       prevStep = newStep;
 
     } else if (lv.length >= 2) {
-      const step1 = {
-        $type: SEND_ACTIVITY,
-        activity: lv[0].text,
-      };
-      const step2 = {
-        $type: SEND_ACTIVITY,
-        activity: lv[1].text,
-      };
+      const step1 = guessObi(lv[0].text);
+      const step2 = guessObi(lv[1].text);
 
       if (prevLevel && prevLevel.length > 1) { // already exists a IfCondition
         prevStep.steps = [...(prevStep.steps || []), step1];
