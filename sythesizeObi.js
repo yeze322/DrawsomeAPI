@@ -1,32 +1,110 @@
 const data = require('./json/recognition/412.json');
-const { writeFileSync } = require('fs');
+const ocr = require('./json/ocr/ocr-412.json');
+const ObiTemplate = require('./ObiTemplate.json');
+
 
 const NODE_TAG = 'node';
 const TEXT_TAG = 'text';
 
-const predictions = (data.predictions || [])
-  .map(x => {
-    Object.keys(x.boundingBox)
+// const result = synthesizeObi(ocr, data, { width: 1080, height: 1440 });
+// writeFileSync('./output.json', JSON.stringify(result, null, '\t'));
+
+function processPredictionData(data) {  
+  const predictions = (data.predictions || [])
+    .map(x => {
+      Object.keys(x.boundingBox)
       .forEach(prop => x.boundingBox[prop] *= 1000);
-    return x;
+      return x;
+    });
+  const solidPredictions = predictions.filter(x => x.probability > 0.1);
+  
+  const nodes = solidPredictions
+    .filter(x => x.probability > 0.3)
+    .filter(x => x.tagName === NODE_TAG);
+  return nodes;
+}
+
+function processOCRData(data, imageSize) {
+  const lines = data.recognitionResult.lines || [];
+  return lines.map(line => {
+    const flatRec = line.boundingBox;
+    line.boundingBox = {
+      left: flatRec[0] / imageSize.width * 1000,
+      top: flatRec[1] / imageSize.height * 1000,
+      width: (flatRec[4] - flatRec[0]) / imageSize.width * 1000,
+      height: (flatRec[5] - flatRec[1]) / imageSize.height * 1000,
+    }
+    return line;
   });
-const solidPredictions = predictions.filter(x => x.probability > 0.1);
+}
 
-const nodes = solidPredictions
-  .filter(x => x.probability > 0.7)
-  .filter(x => x.tagName === NODE_TAG);
 
-const texts = solidPredictions.filter(x => x.tagName === TEXT_TAG);
+function synthesizeObi(ocrResult, predictResult, imageSize) {
+  const nodes = processPredictionData(predictResult);
+  const texts = processOCRData(ocrResult, imageSize);
 
-console.log('nodes N = ', nodes.length);
-console.log('nodes = ', organizeNodes(nodes));
+  nodes.forEach(n => {
+    const relevantText = texts.find(t => judgeBoundingBoxCross(n.boundingBox, t.boundingBox));
+    n.text = relevantText.text;
+  });
 
-// console.log('texts N = ', texts.length);
-// console.log('texts = ', texts);
+  return buildObi(nodes);
+}
 
-writeFileSync('./output.json', JSON.stringify(organizeNodes(nodes), null, '\t'));
+function buildObi(nodes) {
+  const levels = levelNodes(nodes);
+  const SEND_ACTIVITY = 'Microsoft.SendActivity';
+  const IF_ELSE = 'Microsoft.IfCondition';
 
-function organizeNodes (nodes) {
+  const steps = [];
+
+  let prevStep
+  let prevLevel
+
+  for (let lv of levels) {
+    if (lv.length === 1) {
+      const newStep = {
+        $type: SEND_ACTIVITY,
+        activity: lv[0].text,
+      };
+      steps.push(newStep);
+      prevStep = newStep;
+
+    } else if (lv.length >= 2) {
+      const step1 = {
+        $type: SEND_ACTIVITY,
+        activity: lv[0].text,
+      };
+      const step2 = {
+        $type: SEND_ACTIVITY,
+        activity: lv[1].text,
+      };
+
+      if (prevLevel && prevLevel.length > 1) { // already exists a IfCondition
+        prevStep.steps = [...(prevStep.steps || []), step1];
+        prevStep.elseSteps = [...(prevStep.steps || []), step2];
+      } else {  // need to create one
+        const newStep = {
+          $type: IF_ELSE,
+          condition: 'true',
+          steps: [step1],
+          elseSteps: [step2],
+        };
+
+        steps.push(newStep);
+        prevStep = newStep;
+      }
+    }
+
+    prevLevel = lv;
+  }
+
+  const json = JSON.parse(JSON.stringify(ObiTemplate));
+  json.steps = steps;
+  return json;
+}
+
+function levelNodes (nodes) {
   const MIN_INTERVAL_Y = 50;
   const yOrderedNodes = nodes.sort((a, b) => a.boundingBox.top > b.boundingBox.top);
 
@@ -43,8 +121,6 @@ function organizeNodes (nodes) {
     } else {
       prevLevel.push(node);
     }
-    const relevantText = texts.find(t => judgeBoundingBoxCross(node.boundingBox, t.boundingBox));
-    node.text = relevantText;
   }
 
   for (let level of levels) {
@@ -66,14 +142,6 @@ function judgeBoundingBoxCross(box1, box2) {
     rec1[0] - rec2[2] >= -TH ||  // right
     rec1[1] - rec2[3] >= -TH     // top
   );
-}
-
-function synthesizeObi(ocrResult, predictResult, imageSize) {
-  return {
-    imageSize,
-    ocrResult,
-    predictResult,
-  }
 }
 
 module.exports = {

@@ -1,0 +1,7 @@
+{
+  "$type": "Microsoft.AdaptiveDialog",
+  "autoEndDialog": true,
+  "generator": "common.lg",
+  "steps": [],
+  "$schema": "../../app.schema"
+}
