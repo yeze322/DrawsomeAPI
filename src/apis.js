@@ -1,4 +1,3 @@
-const R = require('rxjs');
 const rp = require('request-promise');
 
 const OCR_AUTH_KEY = '15bf9b7d41784ad79b2bca872b141dff';

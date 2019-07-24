@@ -1,6 +1,4 @@
-const data = require('./json/recognition/412.json');
-const ocr = require('./json/ocr/ocr-412.json');
-const ObiTemplate = require('./ObiTemplate.json');
+const ObiTemplate = require('../static/ObiTemplate.json');
 
 const { writeFileSync } = require('fs');
 
